@@ -1,4 +1,7 @@
 var express = require('express');
 var router = express.Router();
+router.get("/game",function(req,res){
+	res.render("game");
+})
 
 module.exports = router;

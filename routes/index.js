@@ -14,10 +14,8 @@ router.get("/waiting",function(req,res){
 router.post("/registerUser",function(req,res){
 	var username = req.body.name;
 	var isCreator;
-	if(users.length==0)
-		isCreator = true;
+	users.length==0 && (isCreator = true);
 	users.push(username);
-	console.log(users);
 	res.render("dashboard",{username:username,isCreator:isCreator});
 })
 
@@ -30,6 +28,5 @@ router.post("/createGame",function(req,res){
 	gameDetails.time = req.body.time;
 	res.redirect("/waiting");
 })
-
 
 module.exports = router;

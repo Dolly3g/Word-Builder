@@ -1,0 +1,16 @@
+html
+ head
+  title Word-Builder
+ body
+  h1 Game Details
+  form(action="/createGame" method="post")
+   |Number of Players :
+   input(type="text" name="numberOfPlayers")
+   br
+   br
+   |Time for Building word : 
+   input(type="text" name="time")
+   | (in seconds)
+   br
+   br
+   input(type="submit" name="Start")

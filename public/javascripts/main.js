@@ -15,7 +15,12 @@ var broadcastNewWord = function(data){
 
 var onPageLoad = function(){
 	$('#btn_send').click(sendWordToServer);
+	$('#word').click(showMeaning);
 	socket.on('newWord',broadcastNewWord);
+}
+
+var showMeaning = function() {
+	$('#wordMeaning').html("Hello World");
 }
 
 $(onPageLoad);

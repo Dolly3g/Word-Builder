@@ -4,10 +4,11 @@ block content
  div(id = "div_words")
  form
   span
-   if isEnabled
-    input(type="text" id="input_word" disabled)
-   else
+   if currentUser == username
     input(type="text" id="input_word")
+   else
+    input(type="text" id="input_word" disabled)
+
    input(type="hidden" value="#{username}" id="hidden_username")
    button(type="button" id="btn_send") Send
   div(id="div_wordMeaning")

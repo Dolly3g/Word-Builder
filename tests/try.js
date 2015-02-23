@@ -37,5 +37,15 @@ var pooja = JSON.stringify({
 );
 //    https://api.pearson.com/v2/dictionaries/ldoce5/entries?headword=test&apikey=A8x5Zdl19xkxlgaUuErOQc9aufyv5WEH   
 // Pooja
+
+iv(id = "div_words")
+form
+ span
+  if isEnabled
+   input(type="text" id="input_word" disabled)
+  else
+   input(type="text" id="input_word")
+  button(type="button" id="btn_send") Send
+
 //  • 
 // Now

@@ -8,9 +8,9 @@ var io = require('socket.io')(http);
 app.set('port', process.env.PORT || 3000);
 
 io.on('connection', function(socket){
-  socket.on('newWord', function(newWord){
-    io.emit('newWord', newWord);
-  });
+	socket.on('newWord', function(data){
+    	io.emit('newWord', data);
+	});
 });
 
 

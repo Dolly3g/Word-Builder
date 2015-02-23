@@ -24,7 +24,7 @@ router.get("/dashboard",requireRegistration,function(req,res){
 
 router.get("/game",requireRegistration,function(req,res){
 	res.locals.username = req.session.username;
-	res.render("game",{isEnabled:true});
+	res.render("game",{currentUser:users[0],users:JSON.stringify(users)});
 })
 
 router.get("/waiting",requireRegistration,function(req,res){

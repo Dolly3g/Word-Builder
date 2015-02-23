@@ -9,5 +9,8 @@ html
 div(id = "div_words")
 form
  span
-  input(type="text" id="input_word")
+  if isEnabled
+   input(type="text" id="input_word" disabled)
+  else
+   input(type="text" id="input_word")
   button(type="button" id="btn_send") Send

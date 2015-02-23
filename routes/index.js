@@ -1,10 +1,12 @@
 var express = require('express');
 var router = express.Router();
+var wb_lib = require("../own_modules/wb_lib.js");
 var users = [];
 var gameDetails = {};
 
+
 router.get("/game",function(req,res){
-	res.render("game");
+	res.render("game",{isEnabled:true});
 })
 
 router.get("/waiting",function(req,res){
@@ -13,10 +15,7 @@ router.get("/waiting",function(req,res){
 
 router.post("/registerUser",function(req,res){
 	var username = req.body.name;
-	var isCreator;
-	users.length==0 && (isCreator = true);
-	users.push(username);
-	res.render("dashboard",{username:username,isCreator:isCreator});
+	res.render("dashboard",{username:username,isCreator:wb_lib.isUserExist(users,username)});
 })
 
 router.get("/createGame",function(req,res){

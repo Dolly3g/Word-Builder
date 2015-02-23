@@ -1,23 +1,33 @@
-var sqlite3 = require("sqlite3").verbose();
 
-var init = function(location){
-	var operate = function(operation){
-		return function(){
-			var onComplete = (arguments.length == 2)?arguments[1]:arguments[0];
-			var arg = (arguments.length == 2) && arguments[0];
+exports.isUserExist = function(users,username){
+	var isCreator = false;
+	if(users.length==0){
+		isCreator = true;
+	}
+	users.push(username);
+	return isCreator;
+}
 
-			var onDBOpen = function(err){
-				if(err){onComplete(err);return;}
-				db.run("PRAGMA foreign_keys = 'ON';");
-				arg && operation(arg,db,onComplete);
-				arg || operation(db,onComplete);
-				db.close();
-			};
-			var db = new sqlite3.Database(location,onDBOpen);
-		};	
-	};
-	var records  = {};
-	return records;
-};
+// exports.isWordExistInDictionary = function(word,strkey){
+// 	var url = strkey.append(word);
+// 	var obj;
+// 	$.getJSON(url,function(data){
+// 		data = obj;
+// 	});
 
-exports.init =init;
+// }
+
+exports.isWordAlreadyExist = function(words,word){
+	if(words.indexOf(word)!=-1)
+		return true;
+	return false;
+}
+
+exports.isWordStartWithPreviousLetter = function(words,word){
+	var lastWord = words[words.length-1];
+	var lastLetter = lastWord[lastWord.length-1];
+	if(lastLetter==word[0])
+		return true;
+	return false;
+}
+

@@ -28,7 +28,10 @@ router.get("/game",requireRegistration,function(req,res){
 })
 
 router.get("/waiting",requireRegistration,function(req,res){
-	res.render("waiting",{numberOfPlayers:gameDetails.numberOfPlayers , playersJoined:users.length});
+	var numberOfPlayers = gameDetails.numberOfPlayers;
+	var playersJoined = users.length;
+	var remainingPlayers = numberOfPlayers - playersJoined;
+	(remainingPlayers==0) ? res.redirect("/game") : res.render("waiting",{remainingPlayers:remainingPlayers});
 })
 
 router.post("/registerUser",function(req,res){

@@ -8,7 +8,8 @@ var io = require('socket.io')(http);
 app.set('port', process.env.PORT || 3000);
 
 io.on('connection', function(socket){
-  socket.on('newWord', function(newWord){
+	//console.log(socket);
+	socket.on('newWord', function(newWord){
     io.emit('newWord', newWord);
   });
 });

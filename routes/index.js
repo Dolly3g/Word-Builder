@@ -4,7 +4,6 @@ var wb_lib = require("../own_modules/wb_lib.js");
 var users = [];
 var gameDetails = {};
 
-
 var requireRegistration = function(req,res,next){
 	req.session.username? next(): res.redirect('/');
 }
@@ -14,12 +13,10 @@ router.get("/registration",function(req,res){
 })
 
 router.get("/dashboard",requireRegistration,function(req,res){
-	var isCreator;
 	var username = req.session.username;
-	users.length==0 && (isCreator = true);
 	users.push(username);
 	res.locals.username = username;
-	res.render('dashboard',{isCreator:isCreator});
+	res.render('dashboard',{isCreator:wb_lib.isCreator(users)});
 })
 
 router.get("/game",requireRegistration,function(req,res){
@@ -33,6 +30,7 @@ router.get("/waiting",requireRegistration,function(req,res){
 
 router.post("/registerUser",function(req,res){
 	var username = req.body.name;
+
 	if(wb_lib.isUserExist(users,username))
 		res.redirect("/registration");
 	else{

@@ -1,24 +1,17 @@
-
-exports.isUserExist = function(users,username){
+exports.isCreator = function(users){
 	var isCreator = false;
-	if(users.length==0){
-		isCreator = true;
-	}
-	users.push(username);
+	users.length==0 && (isCreator = true);
 	return isCreator;
 }
 
-// exports.isWordExistInDictionary = function(word,strkey){
-// 	var url = strkey.append(word);
-// 	var obj;
-// 	$.getJSON(url,function(data){
-// 		data = obj;
-// 	});
-
-// }
-
 exports.isWordAlreadyExist = function(words,word){
 	if(words.indexOf(word)!=-1)
+		return true;
+	return false;
+}
+
+exports.isUserExist = function(users,user){
+	if(users.indexOf(user)!=-1)
 		return true;
 	return false;
 }

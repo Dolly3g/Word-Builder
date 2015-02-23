@@ -12,12 +12,13 @@ router.get("/registration",function(req,res){
 })
 
 router.get("/dashboard",requireRegistration,function(req,res){
-	var isCreator;
+	var isCreator,isGameRunning;
 	var username = req.session.username;
-	users.length==0 && (isCreator = true);
+	users.length == gameDetails.numberOfPlayers && (isGameRunning = true);
+	users.length == 0 && (isCreator = true);
 	users.push(username);
 	res.locals.username = username;
-	res.render('dashboard',{isCreator:isCreator});
+	res.render('dashboard',{isGameRunning:isGameRunning,isCreator:isCreator});
 })
 
 router.get("/game",requireRegistration,function(req,res){
@@ -26,7 +27,7 @@ router.get("/game",requireRegistration,function(req,res){
 })
 
 router.get("/waiting",requireRegistration,function(req,res){
-	res.render("waiting");
+	res.render("waiting",{numberOfPlayers:gameDetails.numberOfPlayers , playersJoined:users.length});
 })
 
 router.post("/registerUser",function(req,res){

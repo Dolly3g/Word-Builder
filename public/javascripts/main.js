@@ -8,7 +8,7 @@ var sendWordToServer = function(){
 }
 
 var broadcastNewWord = function(data){
-	var newWordHTML = "<div>" + data.username + " : " + data.newWord + "</div>";
+	var newWordHTML = "<div>" + data.username + " : <a href=''>" + data.newWord + "</a></div>";
 	var previousWords = $('#div_words').html();
 	$('#div_words').html(previousWords + " " + newWordHTML);
 }

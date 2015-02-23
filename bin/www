@@ -9,6 +9,9 @@ app.set('port', process.env.PORT || 3000);
 
 io.on('connection', function(socket){
 	socket.on('newWord', function(data){
+		var users = JSON.parse(data.users);
+		var indexOfCurrentUser = users.indexOf(data.currentUser);
+		data.currentUser = users[indexOfCurrentUser+1];
     	io.emit('newWord', data);
 	});
 });

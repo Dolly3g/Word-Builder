@@ -3,7 +3,10 @@ html
   title Word Builder
 body
  h1 Hello #{username}
- if isCreator
-  button( type="button" onclick="location.href='/createGame'") Create
+ if isGameRunning
+  h1 Already Running
  else
-  button( type="button" onclick="location.href='/waiting'") Play
+  if isCreator
+   button( type="button" onclick="location.href='/createGame'") Create
+  else
+   button( type="button" onclick="location.href='/waiting'") Play

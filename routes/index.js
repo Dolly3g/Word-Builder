@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var wb_lib = require("../own_modules/wb_lib.js");
 var users = [];
 var gameDetails = {};
 
@@ -12,27 +13,36 @@ router.get("/registration",function(req,res){
 })
 
 router.get("/dashboard",requireRegistration,function(req,res){
-	var isCreator;
+	var isGameRunning;
+	var isCreator = wb_lib.isCreator(users);
 	var username = req.session.username;
-	users.length==0 && (isCreator = true);
+	users.length == gameDetails.numberOfPlayers && (isGameRunning = true);
 	users.push(username);
 	res.locals.username = username;
-	res.render('dashboard',{isCreator:isCreator});
+	res.render('dashboard',{isGameRunning:isGameRunning,isCreator:isCreator});
 })
 
 router.get("/game",requireRegistration,function(req,res){
 	res.locals.username = req.session.username;
-	res.render("game");
+	res.render("game",{currentUser:users[0],users:JSON.stringify(users)});
 })
 
 router.get("/waiting",requireRegistration,function(req,res){
-	res.render("waiting");
+	var numberOfPlayers = gameDetails.numberOfPlayers;
+	var playersJoined = users.length;
+	var remainingPlayers = numberOfPlayers - playersJoined;
+	(remainingPlayers==0) ? res.redirect("/game") : res.render("waiting",{remainingPlayers:remainingPlayers});
 })
 
 router.post("/registerUser",function(req,res){
 	var username = req.body.name;
-	req.session.username = username;
-	res.redirect("/dashboard");
+
+	if(wb_lib.isUserExist(users,username))
+		res.redirect("/registration");
+	else{
+		req.session.username = username;
+		res.redirect("/dashboard");
+	}
 })
 
 router.get("/createGame",requireRegistration,function(req,res){

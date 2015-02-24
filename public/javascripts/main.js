@@ -36,7 +36,6 @@ var getMeanings = function(results) {
 }
 
 var displayWordMeaning = function(newWord) {
-	alert(newWord);
 	var url = DIC_URL.replace(/WORD/, newWord);
 	$.getJSON(url, function(dicJSON){
 		var meaning = getMeanings(dicJSON.results)[0];

@@ -1,4 +1,5 @@
 var socket = io();
+var WORD_DIV = "<div class = words onclick = displayWordMeaning('NEWWORD')>USERNAME NEWWORD</div>";
 
 var sendWordToServer = function(){
 	var newWord = $('#input_word').val();
@@ -7,8 +8,12 @@ var sendWordToServer = function(){
 	socket.emit('newWord',{newWord:newWord,username:username});
 }
 
+var getWordDiv = function(data) {
+	return WORD_DIV.replace(/NEWWORD/g, data.newWord).replace(/USERNAME/g, data.username);
+}
+
 var broadcastNewWord = function(data){
-	var newWordHTML = "<div>" + data.username + " : <a href=''>" + data.newWord + "</a></div>";
+	var newWordHTML = getWordDiv(data)
 	var previousWords = $('#div_words').html();
 	$('#div_words').html(previousWords + " " + newWordHTML);
 }
@@ -19,8 +24,8 @@ var onPageLoad = function(){
 	socket.on('newWord',broadcastNewWord);
 }
 
-var showMeaning = function() {
-	$('#wordMeaning').html("Hello World");
+var displayWordMeaning = function() {
+	alert("Hello");
 }
 
 $(onPageLoad);

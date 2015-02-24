@@ -33,20 +33,29 @@ var onPageLoad = function(){
 	socket.on('newWord',broadcastNewWord);
 }
 
-var getMeanings = function(results) {
-	var meanings = results.reduce(function(pv, cv) {
-		var definition = cv.senses[0].definition;
-		return  pv + "<li>" + definition + "</li>";
-	}, "");
-	return "<ul>" + meanings + "</ul>";
+var getMeanings = function(results, newWord) {
+	var filteredOnHeadWord = results.filter(function(obj){
+		return (obj.headword == newWord.trim());
+	});
 
+	var filteredOnSenses = filteredOnHeadWord.filter(function(word){
+		return word.senses != null;
+	});
+
+	if(filteredOnHeadWord.length==0){
+		return null;
+	}
+	return (filteredOnSenses[0].senses[0].definition);
 }
 
 var displayWordMeaning = function(newWord) {
 	var url = DIC_URL.replace(/WORD/, newWord);
 	$.getJSON(url, function(dicJSON){
-		var meaning = getMeanings(dicJSON.results);
-		$('#div_wordMeaning').html(meaning);
+		var meaning = getMeanings(dicJSON.results, newWord);
+		if(meaning)
+			$('#div_wordMeaning').html(meaning);
+		else
+			$('#div_wordMeaning').html("NOT A VALID WORD");
 	});
 }
 

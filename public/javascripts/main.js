@@ -30,15 +30,18 @@ var onPageLoad = function(){
 }
 
 var getMeanings = function(results) {
-	return results.map(function(obj) {
-		return  obj.senses[0].definition;
-	})
+	var meanings = results.reduce(function(pv, cv) {
+		var definition = cv.senses[0].definition;
+		return  pv + "<li>" + definition + "</li>";
+	}, "");
+	return "<ul>" + meanings + "</ul>";
+
 }
 
 var displayWordMeaning = function(newWord) {
 	var url = DIC_URL.replace(/WORD/, newWord);
 	$.getJSON(url, function(dicJSON){
-		var meaning = getMeanings(dicJSON.results)[0];
+		var meaning = getMeanings(dicJSON.results);
 		$('#div_wordMeaning').html(meaning);
 	});
 }

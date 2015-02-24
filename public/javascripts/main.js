@@ -50,7 +50,7 @@ var onPageLoad = function(){
 
 var getMeanings = function(results, newWord) {
 	var filteredOnHeadWord = results.filter(function(obj){
-		return (obj.headword == newWord.trim());
+		return (obj.headword== newWord.trim().toLowerCase());
 	});
 
 	var filteredOnSenses = filteredOnHeadWord.filter(function(word){

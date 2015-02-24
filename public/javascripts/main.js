@@ -1,5 +1,5 @@
 var socket = io();
-var WORD_DIV = "<div class = words onclick = displayWordMeaning('NEWWORD')>USERNAME NEWWORD</div>";
+var WORD_DIV = "<div class = words onclick = displayWordMeaning('NEWWORD') id='NEWWORD'>OWNEROFWORD NEWWORD</div>";
 var DIC_URL = "https://api.pearson.com/v2/dictionaries/ldoce5/entries?headword=WORD&apikey=A8x5Zdl19xkxlgaUuErOQc9aufyv5WEH"; 
 
 var sendWordToServer = function(){
@@ -12,7 +12,7 @@ var sendWordToServer = function(){
 }
 
 var getWordDiv = function(data) {
-	return WORD_DIV.replace(/NEWWORD/g, data.newWord).replace(/USERNAME/g, data.ownerOfWord);
+	return WORD_DIV.replace(/NEWWORD/g, data.newWord).replace(/OWNEROFWORD/g, data.ownerOfWord);
 }
 
 var broadcastNewWord = function(data){
@@ -21,9 +21,10 @@ var broadcastNewWord = function(data){
 	$('#hidden_currentUser').val(data.currentUser);
 	isInputBoxDisabled = (data.currentUser != username) ? true : false;
 	$('#input_word').prop('disabled',isInputBoxDisabled);
-	var newWordHTML = getWordDiv(data)
+	var newWordHTML = getWordDiv(data);
 	var previousWords = $('#div_words').html();
 	$('#div_words').html(previousWords + " " + newWordHTML);
+	$('#'+data.newWord).click();
 }
 
 var onPageLoad = function(){

@@ -6,6 +6,7 @@ var sendWordToServer = function(){
 	var users = $('#hidden_users').val();
 	var currentUser = $('#hidden_currentUser').val();
 	var newWord = $('#input_word').val();
+	
 	$('#input_word').val("");
 	var ownerOfWord = $('#hidden_username').val();
 	socket.emit('newWord',{newWord:newWord,ownerOfWord:ownerOfWord,users:users,currentUser:currentUser});
@@ -24,6 +25,10 @@ var broadcastNewWord = function(data){
 	var newWordHTML = getWordDiv(data)
 	var previousWords = $('#div_words').html();
 	$('#div_words').html(previousWords + " " + newWordHTML);
+	if(data.currentUser = username){
+		if(data.errorOfCurrentUser)
+			$('#err_msg').text(data.errorOfCurrentUser); 
+	}
 }
 
 var onPageLoad = function(){

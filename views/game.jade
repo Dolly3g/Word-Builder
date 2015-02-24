@@ -8,10 +8,12 @@ block content
     input(type="text" id="input_word")
    else
     input(type="text" id="input_word" disabled)
-
+  div(id = "err_msg")
    h1 #{username}
    input(type="hidden" value="#{username}" id="hidden_username")
    input(type="hidden" value="#{currentUser}" id="hidden_currentUser")
    input(type="hidden" value="#{users}" id="hidden_users")
    button(type="button" id="btn_send") Send
  div(id="div_wordMeaning")
+
+// printing of error message

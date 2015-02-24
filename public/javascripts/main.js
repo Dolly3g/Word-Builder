@@ -1,5 +1,5 @@
 var socket = io();
-var WORD_DIV = "<p style=display:inline-block;>USERNAME: </p> <u><p style=cursor:pointer;color:blue;display:inline-block;text-decoration:underline; class = words onclick = displayWordMeaning('NEWWORD')>NEWWORD</p><br/>";
+var WORD_DIV = "<p style=display:inline-block;>USERNAME: </p> <u><p style=cursor:pointer;color:blue;display:inline-block;text-decoration:underline; class = words onclick = displayWordMeaning('NEWWORD') id='NEWWORD'>NEWWORD</p><br/>";
 var DIC_URL = "https://api.pearson.com/v2/dictionaries/ldoce5/entries?headword=WORD&apikey=A8x5Zdl19xkxlgaUuErOQc9aufyv5WEH"; 
 
 var sendWordToServer = function(){
@@ -25,8 +25,9 @@ var broadcastNewWord = function(data){
 	var newWordHTML = getWordDiv(data);
 	var previousWords = $('#div_words').html();
 	$('#div_words').html(previousWords + " " + newWordHTML);
-	$('#'+data.newWord).click();
 
+	//console.log()
+	$('#'+data.newWord).click();
 	var usersHTML = generateHTMLOfUsers(data.users);
 	$('#div_users').html(usersHTML);
 }
@@ -54,7 +55,6 @@ var getMeanings = function(results) {
 		return  pv + "<li>" + definition + "</li>";
 	}, "");
 	return "<ul>" + meanings + "</ul>";
-
 }
 
 var displayWordMeaning = function(newWord) {

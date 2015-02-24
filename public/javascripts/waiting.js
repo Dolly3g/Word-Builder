@@ -1,7 +1,9 @@
 var socket = io();
 
 var onPageLoad = function(){
-	res
+	var numberOfPlayers = $('#numberOfPlayers').val();
+	socket.emit("numberOfPlayers",{numberOfPlayers:numberOfPlayers});
+	socket.on()
 }
 
 $(onPageLoad);

@@ -4,8 +4,12 @@ block content
  div(id = "div_words")
  form
   span
-   input(type="text" id="input_word")
-  
+   if currentUser == username
+    input(type="text" id="input_word")
+   else
+    input(type="text" id="input_word" disabled)
+
+   h1 #{username}
    input(type="hidden" value="#{username}" id="hidden_username")
    input(type="hidden" value="#{currentUser}" id="hidden_currentUser")
    input(type="hidden" value="#{users}" id="hidden_users")

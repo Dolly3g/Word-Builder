@@ -7,18 +7,20 @@ var sendWordToServer = function(){
 	var currentUser = $('#hidden_currentUser').val();
 	var newWord = $('#input_word').val();
 	$('#input_word').val("");
-	var username = $('#hidden_username').val();
-	socket.emit('newWord',{newWord:newWord,username:username,users:users,currentUser:currentUser});
+	var ownerOfWord = $('#hidden_username').val();
+	socket.emit('newWord',{newWord:newWord,ownerOfWord:ownerOfWord,users:users,currentUser:currentUser});
 }
 
 var getWordDiv = function(data) {
-	return WORD_DIV.replace(/NEWWORD/g, data.newWord).replace(/USERNAME/g, data.username);
+	return WORD_DIV.replace(/NEWWORD/g, data.newWord).replace(/USERNAME/g, data.ownerOfWord);
 }
 
 var broadcastNewWord = function(data){
-	if(data.currentUser != data.username){
-		$('#input_word').prop('disabled',true);
-	}
+	var isInputBoxDisabled;
+	var username = $('#hidden_username').val();
+	$('#hidden_currentUser').val(data.currentUser);
+	isInputBoxDisabled = (data.currentUser != username) ? true : false;
+	$('#input_word').prop('disabled',isInputBoxDisabled);
 	var newWordHTML = getWordDiv(data)
 	var previousWords = $('#div_words').html();
 	$('#div_words').html(previousWords + " " + newWordHTML);

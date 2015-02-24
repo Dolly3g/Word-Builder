@@ -1,11 +1,12 @@
 var socket = io();
-var WORD_DIV = "<div class = words onclick = displayWordMeaning('NEWWORD') id='NEWWORD'>OWNEROFWORD NEWWORD</div>";
+var WORD_DIV = "<p style=display:inline-block;>USERNAME: </p> <u><p style=cursor:pointer;color:blue;display:inline-block;text-decoration:underline; class = words onclick = displayWordMeaning('NEWWORD')>NEWWORD</p><br/>";
 var DIC_URL = "https://api.pearson.com/v2/dictionaries/ldoce5/entries?headword=WORD&apikey=A8x5Zdl19xkxlgaUuErOQc9aufyv5WEH"; 
 
 var sendWordToServer = function(){
 	var users = $('#hidden_users').val();
 	var currentUser = $('#hidden_currentUser').val();
 	var newWord = $('#input_word').val();
+	//meaning
 	$('#input_word').val("");
 	var ownerOfWord = $('#hidden_username').val();
 	socket.emit('newWord',{newWord:newWord,ownerOfWord:ownerOfWord,users:users,currentUser:currentUser});

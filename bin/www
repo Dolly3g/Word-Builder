@@ -10,9 +10,11 @@ app.set('port', process.env.PORT || 3000);
 io.on('connection', function(socket){
 	socket.on('newWord', function(data){
 		var users = JSON.parse(data.users);
+		//delete users if out
 		var indexOfCurrentUser = users.indexOf(data.currentUser) + 1;
 		indexOfCurrentUser == users.length && (indexOfCurrentUser = 0);
 		data.currentUser = users[indexOfCurrentUser];
+		data.users = JSON.stringify(users);
     	io.emit('newWord', data);
 	});
 });

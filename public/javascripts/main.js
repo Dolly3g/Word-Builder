@@ -25,9 +25,24 @@ var broadcastNewWord = function(data){
 	var previousWords = $('#div_words').html();
 	$('#div_words').html(previousWords + " " + newWordHTML);
 	$('#'+data.newWord).click();
+
+	var usersHTML = generateHTMLOfUsers(data.users);
+	$('#div_users').html(usersHTML);
+}
+
+var generateHTMLOfUsers = function(users){
+	users = JSON.parse(users);
+	var usersHTML = users.reduce(function(pv,user){
+		return pv += "<li>" + user + "</li>";
+	},"<ol>");
+	usersHTML += '</ol>';
+	return usersHTML;
 }
 
 var onPageLoad = function(){
+	var users = $('#hidden_users').val();
+	var usersHTML = generateHTMLOfUsers(users);
+	$('#div_users').html(usersHTML);
 	$('#btn_send').click(sendWordToServer);
 	socket.on('newWord',broadcastNewWord);
 }

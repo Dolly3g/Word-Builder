@@ -1,6 +1,4 @@
 extends layout
 block content
- block vars
-  - var remainingPlayers = numberOfPlayers - playersJoined;
- h1 Waiting for #{remainingPlayers} to join
+  h1 Waiting for #{remainingPlayers} to join
  a(href="/game") Start Game

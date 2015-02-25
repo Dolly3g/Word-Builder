@@ -17,7 +17,6 @@ exports.isUserExist = function(users,user){
 }
 
 exports.isWordStartWithPreviousLetter = function(words,word){
-	console.log(words,word);
 	var lastWord = words[words.length-1];
 	var lastLetter = lastWord[lastWord.length - 1];
 	if(lastLetter==word[0])

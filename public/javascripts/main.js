@@ -41,6 +41,9 @@ var broadcastNewWord = function(data){
 
 var generateHTMLOfUsers = function(users, currentUser){
 	users = JSON.parse(users);
+	if(!currentUser){
+		currentUser = users[0];
+	}
 	var usersHTML = users.reduce(function(pv,user){
 		var colorAttrib = 'style="color:black;"';
 		if(currentUser == user)

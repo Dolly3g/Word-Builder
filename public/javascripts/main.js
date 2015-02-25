@@ -86,7 +86,7 @@ var displayWordMeaning = function(newWord) {
 		if(meaning)
 			$('#div_wordMeaning').html(meaning);
 		else
-			$('#div_wordMeaning').html("NOT A VALID WORD");
+			$('#err_msg').html("Not a valid Word");
 	});
 }
 

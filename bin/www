@@ -18,7 +18,6 @@ var isInvalidWord = function(data) {
 	else if(words.length!=0){
 		if(! wb_lib.isWordStartWithPreviousLetter(words,data.newWord)) {
 			errorMsg = "word should start with end of the previous letter";
-			console.log("+++++++++",errorMsg);
 		}
 	}
 	return errorMsg;

@@ -51,6 +51,7 @@ var getMeanings = function(results, newWord) {
 		return (obj.headword== newWord.trim().toLowerCase());
 	});
 
+
 	if(filteredOnHeadWord.length==0)
 		return null;
 

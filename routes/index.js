@@ -14,7 +14,7 @@ router.get("/registration",function(req,res){
 
 router.get("/dashboard",requireRegistration,function(req,res){
 	var isGameRunning;
-	var isCreator = wb_lib.isCreator(users);
+	var isCreator = wb_lib.isCreator(gameDetails);
 	var username = req.session.username;
 	users.length == gameDetails.numberOfPlayers && (isGameRunning = true);
 	if(!wb_lib.isUserExist(users,username)){
@@ -59,7 +59,12 @@ router.post("/registerUser",function(req,res){
 })
 
 router.get("/createGame",requireRegistration,function(req,res){
-	res.render("createGame");
+	if(!wb_lib.isCreator(gameDetails)){
+		res.redirect("/waiting");
+	}
+	else{
+		res.render("createGame");
+	}
 })
 
 router.post("/createGame",requireRegistration,function(req,res){

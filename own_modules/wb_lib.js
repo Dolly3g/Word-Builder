@@ -1,6 +1,7 @@
-exports.isCreator = function(users){
-	var isCreator = false;
-	users.length==0 && (isCreator = true);
+exports.isCreator = function(gameDetails){
+	var isCreator;
+	if(!gameDetails.numberOfPlayers)
+		isCreator = true;
 	return isCreator;
 }
 

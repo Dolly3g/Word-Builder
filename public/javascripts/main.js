@@ -1,5 +1,5 @@
 var socket = io();
-var WORD_DIV = "<p style=display:inline-block;>USERNAME: </p> <u><p style=cursor:pointer;color:blue;display:inline-block;text-decoration:underline; class = words onclick = displayWordMeaning('NEWWORD') id='NEWWORD'>NEWWORD</p><br/>";
+var WORD_DIV = "<p style=display:inline-block;>OWNEROFWORD: </p> <u><p style=cursor:pointer;color:blue;display:inline-block;text-decoration:underline; class = words onclick = displayWordMeaning('NEWWORD') id='NEWWORD'>NEWWORD</p><br/>";
 var DIC_URL = "https://api.pearson.com/v2/dictionaries/ldoce5/entries?headword=WORD&apikey=A8x5Zdl19xkxlgaUuErOQc9aufyv5WEH"; 
 
 var sendWordToServer = function(){
@@ -60,13 +60,13 @@ var getMeanings = function(results, newWord) {
 		return (obj.headword== newWord.trim().toLowerCase());
 	});
 
-	var filteredOnSenses = filteredOnHeadWord.filter(function(word){
-		return word.senses != null;
-	});
-
 	if(filteredOnHeadWord.length==0){
 		return null;
 	}
+
+	var filteredOnSenses = filteredOnHeadWord.filter(function(word){
+		return word.senses != null;
+	});
 	return (filteredOnSenses[0].senses[0].definition);
 }
 

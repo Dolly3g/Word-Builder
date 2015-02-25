@@ -27,7 +27,6 @@ router.get("/dashboard",requireRegistration,function(req,res){
 })
 
 router.get("/game",requireRegistration,function(req,res){
-	console.log(users);
 	if(users.length == gameDetails.numberOfPlayers){
 		res.locals.username = req.session.username;
 		res.render("game",{currentUser:users[0],users:JSON.stringify(users)});

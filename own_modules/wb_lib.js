@@ -19,9 +19,15 @@ exports.isUserExist = function(users,user){
 
 exports.isWordStartWithPreviousLetter = function(words,word){
 	var lastWord = words[words.length-1];
-	var lastLetter = lastWord[lastWord.length-1];
+	var lastLetter = lastWord[lastWord.length - 1];
 	if(lastLetter==word[0])
 		return true;
 	return false;
 }
 
+exports.filterOutUsers = function(users,currentUser){
+	return users.filter(function(user){
+		return user != currentUser; 
+	});
+
+}

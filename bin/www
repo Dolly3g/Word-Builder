@@ -25,13 +25,13 @@ var isInvalidWord = function(data) {
 io.on('connection', function(socket){
 	socket.on('newWord', function(data){
 		var users = JSON.parse(data.users);
-		if(isInvalidWord(data)) {
+		if(isInvalidWord(data) ) {
 			data.errorOfCurrentUser = errorMsg;
 			outUsers.push(data.currentUser);
 			users = wb_lib.filterOutUsers(users,data.currentUser);
 			if(users.length == 1)
 				data.winner = users[0];
-				data.outUser = data.currentUser;
+			data.outUser = data.currentUser;
 		}
 		else{
 			words.push(data.newWord);

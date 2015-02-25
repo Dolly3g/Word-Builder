@@ -1,0 +1,33 @@
+.display_words{
+	width: 30%;
+	float: left;
+	position: relative;
+	height: 100%;
+	display: inline-block;
+	overflow:scroll;
+}
+
+.all_players{
+	float: right;
+	width: 20%;
+	position: relative;
+	height: 80%;
+	display: inline-block;
+}
+
+.meaning{
+	width: 20%;
+	height: 80%;
+	float: left;
+	position: relative;
+	display: inline-block;
+}
+.space{
+	width: 5%;
+	height: 80%;
+	float: left;
+}
+.new_word{
+	width: 100%;
+	height: 5%;
+}

@@ -31,3 +31,11 @@
 	width: 100%;
 	height: 5%;
 }
+
+.winner{
+	/*border: 1px solid black;*/
+	/*width : 20%;*/
+	/*height: 20%;*/
+	color: steelblue;
+	font-size: 120%;
+}

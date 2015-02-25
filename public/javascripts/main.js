@@ -35,7 +35,7 @@ var broadcastNewWord = function(data){
 	}
 	var usersHTML = generateHTMLOfUsers(data.users,data.currentUser);
 	$('#div_users').html(usersHTML);
-	(JSON.parse(data.users).length==1)	&& $('#winner').text("winner:-"+data.winner) &&
+	(JSON.parse(data.users).length==1)	&& $('#winner').text("WINNER > "+data.winner) &&
 	$('#input_word').prop('disabled',true);
 }
 

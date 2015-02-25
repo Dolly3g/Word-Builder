@@ -1,15 +1,41 @@
 #!/usr/bin/env node
 var debug = require('debug')('Word-Builder');
 var app = require('../app');
+var wb_lib = require("../own_modules/wb_lib.js");
 
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var words = [];
+var outUsers = [];
+var errorMsg = null;
 
 app.set('port', process.env.PORT || 3000);
 
+var isInvalidWord = function(data) {
+	if(wb_lib.isWordAlreadyExist(words,data.newWord)){
+		errorMsg = "word alredy exists";
+	}
+	else if(words.length!=0){
+		if(! wb_lib.isWordStartWithPreviousLetter(words,data.newWord)) {
+			errorMsg = "word should start with end of the previous letter";
+		}
+	}
+	return errorMsg;
+}
 io.on('connection', function(socket){
 	socket.on('newWord', function(data){
 		var users = JSON.parse(data.users);
+		if(isInvalidWord(data) ) {
+			data.errorOfCurrentUser = errorMsg;
+			outUsers.push(data.currentUser);
+			users = wb_lib.filterOutUsers(users,data.currentUser);
+			if(users.length == 1)
+				data.winner = users[0];
+			data.outUser = data.currentUser;
+		}
+		else{
+			words.push(data.newWord);
+		}
 		var indexOfCurrentUser = users.indexOf(data.currentUser) + 1;
 		indexOfCurrentUser == users.length && (indexOfCurrentUser = 0);
 		data.currentUser = users[indexOfCurrentUser];

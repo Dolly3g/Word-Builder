@@ -7,19 +7,26 @@ html
   script(src="javascripts/main.js" type="text/javascript")
    
 body
- div(id = "div_words")
- form
-  span
-   if currentUser == username
-    input(type="text" id="input_word")
-   else
-    input(type="text" id="input_word" disabled)
-
-   h1 #{username}
-   input(type="hidden" value="#{username}" id="hidden_username")
-   input(type="hidden" value="#{currentUser}" id="hidden_currentUser")
-   input(type="hidden" value="#{users}" id="hidden_users")
-   button(type="button" id="btn_send") Send
- div(id="div_wordMeaning")
- h1 All Players
- div(id="div_users")
+  p(align = "right") #{username}
+  .display_words
+   div(id = "div_words")
+   .new_word
+    form
+     span
+      if currentUser == username
+       input(type="text" id="input_word")
+      else
+       input(type="text" id="input_word" disabled)
+      input(type="hidden" value="#{username}" id="hidden_username")
+      input(type="hidden" value="#{currentUser}" id="hidden_currentUser")
+      input(type="hidden" value="#{users}" id="hidden_users")
+      button(type="button" id="btn_send") Send
+  .space
+  .meaning
+   h1 Meaning
+   div(id = "err_msg")
+   div(id="div_wordMeaning")
+   div(id="winner")
+  .all_players
+   h1 All Players
+   div(id="div_users")

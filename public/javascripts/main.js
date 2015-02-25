@@ -6,6 +6,7 @@ var sendWordToServer = function(){
 	var users = $('#hidden_users').val();
 	var currentUser = $('#hidden_currentUser').val();
 	var newWord = $('#input_word').val();
+	
 	$('#input_word').val("");
 	var ownerOfWord = $('#hidden_username').val();
 	socket.emit('newWord',{newWord:newWord,ownerOfWord:ownerOfWord,users:users,currentUser:currentUser});
@@ -22,19 +23,36 @@ var broadcastNewWord = function(data){
 	isInputBoxDisabled = (data.currentUser != username) ? true : false;
 	$('#input_word').prop('disabled',isInputBoxDisabled);
 	var newWordHTML = getWordDiv(data);
-	var previousWords = $('#div_words').html();
-	$('#div_words').html(previousWords + " " + newWordHTML);
-	$('#'+data.newWord).click();
-	var usersHTML = generateHTMLOfUsers(data.users);
+	if(data.errorOfCurrentUser){
+		if(data.outUser==username ){
+			$('#err_msg').text(data.errorOfCurrentUser);
+		}
+	}
+	else{
+		var previousWords = $('#div_words').html();
+		$('#div_words').html(previousWords + " " + newWordHTML);
+		$('#'+data.newWord).click();		
+	}
+	var usersHTML = generateHTMLOfUsers(data.users,data.currentUser);
 	$('#div_users').html(usersHTML);
+	(JSON.parse(data.users).length==1)	&& $('#winner').text("winner:-"+data.winner) &&
+	$('#input_word').prop('disabled',true);
 }
 
-var generateHTMLOfUsers = function(users){
+var generateHTMLOfUsers = function(users, currentUser){
 	users = JSON.parse(users);
+	if(!currentUser){
+		currentUser = users[0];
+	}
 	var usersHTML = users.reduce(function(pv,user){
-		return pv += "<li>" + user + "</li>";
+		var colorAttrib = 'style="color:black;"';
+		if(currentUser == user)
+			colorAttrib = 'style="color:red;"';
+		return pv += "<li " + colorAttrib + ">" + user + "</li>";
+
 	},"<ol>");
 	usersHTML += '</ol>';
+
 	return usersHTML;
 }
 
@@ -51,13 +69,13 @@ var getMeanings = function(results, newWord) {
 		return (obj.headword== newWord.trim().toLowerCase());
 	});
 
+	if(filteredOnHeadWord.length==0)
+		return null;
+
 	var filteredOnSenses = filteredOnHeadWord.filter(function(word){
 		return word.senses != null;
 	});
 
-	if(filteredOnHeadWord.length==0){
-		return null;
-	}
 	return (filteredOnSenses[0].senses[0].definition);
 }
 

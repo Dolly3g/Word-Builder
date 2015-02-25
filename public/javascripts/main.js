@@ -27,23 +27,29 @@ var broadcastNewWord = function(data){
 		if(data.outUser==username ){
 			$('#err_msg').text(data.errorOfCurrentUser);
 		}
-	}	
+	}
 	else{
 		var previousWords = $('#div_words').html();
 		$('#div_words').html(previousWords + " " + newWordHTML);
 		$('#'+data.newWord).click();		
 	}
-	var usersHTML = generateHTMLOfUsers(data.users);
+	var usersHTML = generateHTMLOfUsers(data.users,data.currentUser);
 	$('#div_users').html(usersHTML);
-	(JSON.parse(data.users).length==1)	&& $('#winner').text("winner:-"+data.winner) && $('#input_word').prop('disabled',true);
+	(JSON.parse(data.users).length==1)	&& $('#winner').text("winner:-"+data.winner) &&
+	$('#input_word').prop('disabled',true);
 }
 
-var generateHTMLOfUsers = function(users){
+var generateHTMLOfUsers = function(users, currentUser){
 	users = JSON.parse(users);
 	var usersHTML = users.reduce(function(pv,user){
-		return pv += "<li>" + user + "</li>";
+		var colorAttrib = 'style="color:black;"';
+		if(currentUser == user)
+			colorAttrib = 'style="color:red;"';
+		return pv += "<li " + colorAttrib + ">" + user + "</li>";
+
 	},"<ol>");
 	usersHTML += '</ol>';
+
 	return usersHTML;
 }
 

@@ -17,17 +17,31 @@ router.get("/dashboard",requireRegistration,function(req,res){
 	var isCreator = wb_lib.isCreator(users);
 	var username = req.session.username;
 	users.length == gameDetails.numberOfPlayers && (isGameRunning = true);
-	users.push(username);
-	res.locals.username = username;
-	res.render('dashboard',{isGameRunning:isGameRunning,isCreator:isCreator});
+	if(!wb_lib.isUserExist(users,username)){
+		users.push(username);
+		res.locals.username = username;
+		res.render('dashboard',{isGameRunning:isGameRunning,isCreator:isCreator});
+	}
+	else
+		res.redirect('waiting');
 })
 
 router.get("/game",requireRegistration,function(req,res){
-	res.locals.username = req.session.username;
-	res.render("game",{currentUser:users[0],users:JSON.stringify(users)});
+	console.log(users);
+	if(users.length == gameDetails.numberOfPlayers){
+		res.locals.username = req.session.username;
+		res.render("game",{currentUser:users[0],users:JSON.stringify(users)});
+	}
+	else{
+		res.redirect("/waiting");
+	}
 })
 
 router.get("/waiting",requireRegistration,function(req,res){
+	if(!gameDetails.numberOfPlayers){
+		res.redirect("dashboard");
+		return;
+	}
 	var numberOfPlayers = gameDetails.numberOfPlayers;
 	var playersJoined = users.length;
 	var remainingPlayers = numberOfPlayers - playersJoined;
@@ -56,3 +70,12 @@ router.post("/createGame",requireRegistration,function(req,res){
 })
 
 module.exports = router;
+
+
+//readyTOplay(){
+//	username
+	//waiting
+
+	//..all users
+	//game
+//}

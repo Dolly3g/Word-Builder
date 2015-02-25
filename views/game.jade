@@ -7,6 +7,7 @@ html
   script(src="javascripts/main.js" type="text/javascript")
    
 body
+ p(align = "right") #{username}
  div(id = "div_words")
  form
   span
@@ -15,6 +16,7 @@ body
    else
     input(type="text" id="input_word" disabled)
    h1 #{username}
+
    input(type="hidden" value="#{username}" id="hidden_username")
    input(type="hidden" value="#{currentUser}" id="hidden_currentUser")
    input(type="hidden" value="#{users}" id="hidden_users")

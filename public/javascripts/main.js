@@ -60,13 +60,14 @@ var getMeanings = function(results, newWord) {
 		return (obj.headword== newWord.trim().toLowerCase());
 	});
 
-	if(filteredOnHeadWord.length==0){
+
+	if(filteredOnHeadWord.length==0)
 		return null;
-	}
 
 	var filteredOnSenses = filteredOnHeadWord.filter(function(word){
 		return word.senses != null;
 	});
+
 	return (filteredOnSenses[0].senses[0].definition);
 }
 

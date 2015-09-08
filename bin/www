@@ -9,7 +9,7 @@ var words = [];
 var outUsers = [];
 var errorMsg = null;
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 5000);
 
 var isInvalidWord = function(data) {
 	if(wb_lib.isWordAlreadyExist(words,data.newWord)){
